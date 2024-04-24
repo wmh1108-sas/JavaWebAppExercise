@@ -13,6 +13,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @EnableWebMvc
 @EnableWebSecurity
@@ -31,7 +32,8 @@ public class SecurityConfig implements WebMvcConfigurer {
     	http.authorizeHttpRequests((requests) -> requests
     			.requestMatchers("/user").hasRole("USER")
     			.requestMatchers("/admin").hasRole("ADMIN")
-    			.requestMatchers("/").permitAll());
+    			.requestMatchers("/").permitAll())
+    		.formLogin(withDefaults());
     	return http.build();
     }
 
